@@ -76,6 +76,46 @@
 
     if (currentLang !== 'en') setLanguage(currentLang);
 
+    /* ---------- Consent Modal (Cookies + Terms) ---------- */
+    var CONSENT_KEY = 'gdmc-consent';
+    var consentModal = document.getElementById('consent-modal');
+
+    function closeConsent(value) {
+        if (!consentModal) return;
+        try { localStorage.setItem(CONSENT_KEY, value); } catch (e) {}
+        consentModal.classList.remove('active');
+        setTimeout(function () { consentModal.setAttribute('hidden', ''); }, 550);
+    }
+
+    function openConsent() {
+        if (!consentModal) return;
+        consentModal.removeAttribute('hidden');
+        requestAnimationFrame(function () {
+            consentModal.classList.add('active');
+        });
+        setLanguage(currentLang);
+    }
+
+    var storedConsent = null;
+    try { storedConsent = localStorage.getItem(CONSENT_KEY); } catch (e) {}
+
+    if (consentModal && !storedConsent) {
+        openConsent();
+
+        var acceptBtn = consentModal.querySelector('.consent-accept');
+        var declineBtn = consentModal.querySelector('.consent-decline');
+
+        if (acceptBtn) acceptBtn.addEventListener('click', function () { closeConsent('accepted'); });
+        if (declineBtn) declineBtn.addEventListener('click', function () { closeConsent('declined'); });
+
+        document.addEventListener('keydown', function escHandler(e) {
+            if (e.key === 'Escape' && consentModal.classList.contains('active')) {
+                closeConsent('declined');
+                document.removeEventListener('keydown', escHandler);
+            }
+        });
+    }
+
     /* ---------- Scrollspy ---------- */
     var sections = document.querySelectorAll('main section[id]');
     var navLinks = document.querySelectorAll('.nav-link');
