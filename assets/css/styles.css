@@ -73,7 +73,7 @@
     --shadow-gold:  0 12px 28px rgba(201, 169, 97, 0.22);
 }
 
-html[dir="rtl"] {
+html[lang="ar"] {
     --font-display: 'Tajawal', sans-serif;
     --font-head:    'Tajawal', sans-serif;
     --font-body:    'Tajawal', sans-serif;
@@ -145,6 +145,22 @@ textarea:focus-visible,
 }
 
 .section-title--light { color: var(--white); }
+
+.section-title--gradient {
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1.1;
+    white-space: nowrap;
+    background-image: linear-gradient(120deg, #8F0A1F 0%, #C8102E 30%, #E84357 55%, #C9A961 85%, #8F7A3F 100%);
+    background-size: 220% 220%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 9s ease infinite;
+}
+.reviews .section-title--gradient,
+.contact .section-title--gradient {
+    background-image: linear-gradient(120deg, #FFFFFF 0%, #FFD3A0 30%, #E3C890 55%, #FFB5A8 80%, #FFFFFF 100%);
+}
 
 .section-desc {
     font-size: 1.0625rem;
@@ -349,10 +365,7 @@ textarea:focus-visible,
     width: 72px;
     height: 72px;
     object-fit: contain;
-    border-radius: 50%;
-    background: var(--white);
-    padding: 4px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.22), 0 0 0 1px rgba(201, 169, 97, 0.18);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.22);
 }
 
 .nav-brand-text {
@@ -364,10 +377,11 @@ textarea:focus-visible,
 
 .brand-tagline {
     font-family: var(--font-head);
-    font-size: 12.5px;
+    font-size: 14.5px;
     font-weight: 700;
-    letter-spacing: 3.6px;
+    letter-spacing: 3.8px;
     text-transform: uppercase;
+    white-space: nowrap;
     background: linear-gradient(120deg, #FFFFFF 0%, #E3C890 60%, #C9A961 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -376,12 +390,18 @@ textarea:focus-visible,
 
 .brand-sub {
     font-family: var(--font-head);
-    font-size: 10px;
+    font-size: 11.5px;
     font-weight: 700;
     letter-spacing: 3.8px;
     text-transform: uppercase;
     color: rgba(255,255,255,0.62);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
+.brand-sub > span { display: block; }
+html[lang="ar"] .brand-sub { flex-direction: row; gap: 6px; white-space: nowrap; }
+html[lang="ar"] .brand-sub > span { display: inline; }
 
 .nav-links {
     display: flex;
@@ -391,9 +411,9 @@ textarea:focus-visible,
 
 .nav-link {
     position: relative;
-    padding: 12px 19px;
+    padding: clamp(18px, 1.1vw, 26px) clamp(20px, 1.3vw, 30px);
     font-family: var(--font-head);
-    font-size: 15.5px;
+    font-size: clamp(17px, 0.45vw + 12.5px, 24px);
     font-weight: 500;
     color: rgba(255,255,255,0.72);
     border-radius: 999px;
@@ -533,6 +553,11 @@ html[dir="rtl"] .mobile-nav-links li a:hover {
     color: rgba(255,255,255,0.85);
     border-color: rgba(255,255,255,0.22);
     padding: 15px;
+    display: none;
+}
+@media (max-width: 420px) {
+    .btn--lang-mobile { display: inline-flex; }
+    .nav-actions { display: none !important; }
 }
 
 /* ========================================================
@@ -541,6 +566,7 @@ html[dir="rtl"] .mobile-nav-links li a:hover {
 .hero {
     position: relative;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -590,6 +616,7 @@ html[dir="rtl"] .mobile-nav-links li a:hover {
     margin: 0 auto;
     padding: 0 28px;
     width: 100%;
+    text-align: center;
 }
 
 .hero-eyebrow {
@@ -624,7 +651,12 @@ html[dir="rtl"] .mobile-nav-links li a:hover {
 .hero-line--1 {
     font-size: clamp(3.8rem, 10vw, 8rem);
     font-weight: 500;
-    animation-delay: 0.25s;
+    background-image: linear-gradient(135deg, #FFFFFF 0%, #D8D8D8 30%, #9AA0A6 50%, #D8D8D8 70%, #FFFFFF 100%);
+    background-size: 220% 220%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: hero-reveal 0.9s var(--ease) 0.25s forwards, gradient-shift 9s ease infinite;
 }
 
 .hero-line--2 {
@@ -684,7 +716,7 @@ html[dir="rtl"] .hero-line--2 .word { font-style: normal; }
     line-height: 1.8;
     color: rgba(255,255,255,0.84);
     max-width: 660px;
-    margin-bottom: 46px;
+    margin: 0 auto 46px;
     opacity: 0;
     animation: hero-reveal 0.8s var(--ease) 0.78s forwards;
 }
@@ -692,6 +724,7 @@ html[dir="rtl"] .hero-line--2 .word { font-style: normal; }
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 16px;
     opacity: 0;
     animation: hero-reveal 0.8s var(--ease) 0.92s forwards;
@@ -796,9 +829,14 @@ html[dir="rtl"] .hero-line--2 .word { font-style: normal; }
     font-family: var(--font-display);
     font-size: 1.55rem;
     font-weight: 400;
-    color: var(--ink);
     letter-spacing: -0.01em;
     line-height: 1.15;
+    background-image: linear-gradient(120deg, #8F0A1F 0%, #C8102E 30%, #E84357 55%, #C9A961 85%, #8F7A3F 100%);
+    background-size: 220% 220%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 9s ease infinite;
 }
 
 .service-card p {
@@ -836,7 +874,9 @@ html[dir="rtl"] .hero-line--2 .word { font-style: normal; }
    ======================================================== */
 .about {
     padding: 160px 0;
-    background: var(--ivory);
+    background:
+        linear-gradient(rgba(250, 247, 242, 0.70), rgba(250, 247, 242, 0.70)),
+        url('../images/about-reception.webp') center / cover no-repeat fixed;
     position: relative;
 }
 .about::before {
@@ -859,84 +899,15 @@ html[dir="rtl"] .hero-line--2 .word { font-style: normal; }
 .about > .container { position: relative; }
 
 .about-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.08fr;
-    gap: 90px;
-    align-items: center;
-}
-
-.about-visual { position: relative; }
-.about-img-stack { position: relative; }
-
-.about-img--main {
-    border-radius: var(--r-xl);
-    overflow: hidden;
-    aspect-ratio: 4/5;
-    background: var(--cream);
-    box-shadow: var(--shadow-xl);
-    position: relative;
-}
-.about-img--main img { width: 100%; height: 100%; object-fit: cover; }
-.about-img--main::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(195deg, transparent 58%, rgba(17, 20, 24, 0.22) 100%);
-    pointer-events: none;
-}
-
-.about-credentials {
-    position: absolute;
-    bottom: -28px;
-    right: -20px;
-    z-index: 2;
-}
-html[dir="rtl"] .about-credentials { right: auto; left: -20px; }
-
-.about-credential {
-    background: var(--white);
-    padding: 22px 28px;
-    border-radius: var(--r-lg);
-    box-shadow: var(--shadow-lg);
-    text-align: left;
-    border: 1px solid rgba(201, 169, 97, 0.28);
-    min-width: 220px;
-}
-html[dir="rtl"] .about-credential { text-align: right; }
-
-.credential-number {
     display: block;
-    font-family: var(--font-display);
-    font-size: 2.75rem;
-    font-weight: 400;
-    line-height: 1;
-    background: var(--grad-brand);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 0.01em;
-}
-.credential-label {
-    display: block;
-    font-family: var(--font-head);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--gray-500);
-    margin-top: 8px;
-    line-height: 1.4;
 }
 
-.about-content { padding-right: 20px; }
-html[dir="rtl"] .about-content { padding-right: 0; padding-left: 20px; }
-
-.about-text {
-    font-size: 1.0625rem;
-    color: var(--gray-700);
-    line-height: 1.85;
-    margin-bottom: 20px;
+.about-content {
+    max-width: 880px;
+    margin: 0 auto;
 }
+
+.about-content .section-title { text-align: center; }
 
 .about-features {
     margin-top: 42px;
@@ -976,7 +947,8 @@ html[dir="rtl"] .about-content { padding-right: 0; padding-left: 20px; }
 
 .about-feature span {
     font-size: 13.5px;
-    color: var(--gray-500);
+    color: var(--gray-900);
+    font-weight: 500;
     line-height: 1.55;
 }
 
@@ -1105,16 +1077,22 @@ html[dir="rtl"] .about-content { padding-right: 0; padding-left: 20px; }
    ======================================================== */
 .reviews {
     padding: 160px 0 140px;
-    background: linear-gradient(180deg, var(--ivory) 0%, var(--gold-mist) 100%);
+    background: var(--grad-dark);
     position: relative;
     overflow: hidden;
+    isolation: isolate;
+    color: var(--white);
 }
 .reviews::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.32), transparent);
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(200, 16, 46, 0.32) 0%, transparent 50%),
+        radial-gradient(circle at 80% 72%, rgba(201, 169, 97, 0.32) 0%, transparent 55%),
+        radial-gradient(circle at 50% 120%, rgba(255, 220, 180, 0.18) 0%, transparent 55%);
+    z-index: -1;
+    pointer-events: none;
 }
 
 .reviews-marquee {
@@ -1198,72 +1176,6 @@ html[dir="rtl"] .about-content { padding-right: 0; padding-left: 20px; }
     font-size: 12.5px;
     color: var(--gray-500);
     letter-spacing: 0.3px;
-}
-
-/* ========================================================
-   CTA BANNER
-   ======================================================== */
-.cta-banner {
-    position: relative;
-    padding: 140px 0;
-    overflow: hidden;
-    color: var(--white);
-    isolation: isolate;
-}
-
-.cta-banner-bg {
-    position: absolute;
-    inset: 0;
-    background: var(--grad-dark);
-    z-index: -2;
-}
-.cta-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        radial-gradient(circle at 20% 30%, rgba(200, 16, 46, 0.32) 0%, transparent 50%),
-        radial-gradient(circle at 80% 72%, rgba(201, 169, 97, 0.32) 0%, transparent 55%),
-        radial-gradient(circle at 50% 120%, rgba(255, 220, 180, 0.18) 0%, transparent 55%);
-    z-index: -1;
-}
-
-.cta-banner::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E");
-    opacity: 0.045;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-}
-
-.cta-content {
-    max-width: 860px;
-    margin: 0 auto;
-    text-align: center;
-}
-.cta-content h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 4.8vw, 3.6rem);
-    font-weight: 400;
-    line-height: 1.12;
-    color: var(--white);
-    letter-spacing: -0.015em;
-    margin-bottom: 24px;
-}
-.cta-content p {
-    font-size: 1.0625rem;
-    color: rgba(255,255,255,0.84);
-    max-width: 640px;
-    margin: 0 auto 44px;
-    line-height: 1.8;
-}
-.cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
 }
 
 /* ========================================================
@@ -1472,21 +1384,20 @@ html[dir="rtl"] .contact-item:not(.contact-item--static):hover { transform: tran
     margin-bottom: 22px;
 }
 .footer-logo-img {
-    background: var(--white);
-    border-radius: 50%;
-    padding: 4px;
-    box-shadow: 0 0 0 1px rgba(201, 169, 97, 0.22);
+    object-fit: contain;
 }
 .footer-name {
     font-family: var(--font-display);
     font-size: 1.75rem;
     font-weight: 400;
-    background: linear-gradient(120deg, #FFFFFF 0%, #FFD3A0 45%, #C9A961 100%);
+    background-image: linear-gradient(120deg, #FFFFFF 0%, #FFD3A0 25%, #E84357 50%, #C9A961 75%, #FFFFFF 100%);
+    background-size: 220% 220%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: block;
     line-height: 1.05;
+    animation: gradient-shift 9s ease infinite;
 }
 .footer-sub {
     font-family: var(--font-head);
@@ -1581,54 +1492,65 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .service-card--feature .service-card-img { aspect-ratio: 16/11; }
 
     .doctors-grid { grid-template-columns: 1fr; gap: 26px; }
-    .doctor-card { grid-template-columns: 0.75fr 1fr; }
+    .doctor-card { grid-template-columns: 0.85fr 1fr; align-items: center; min-height: 0; }
+    .doctor-photo { aspect-ratio: 1; height: auto; align-self: center; }
+    .doctor-card-body { padding: 32px 30px; gap: 12px; }
+    .doctor-card-body h3 { font-size: 2rem; }
+    .doctor-role { font-size: 13px; letter-spacing: 2.4px; }
+    .doctor-card-body p { font-size: 1.15rem; line-height: 1.7; }
 
-    .about-layout { grid-template-columns: 1fr; gap: 80px; }
-    .about-img--main { max-width: 520px; margin: 0 auto; }
-    .about-visual { max-width: 520px; margin: 0 auto; width: 100%; }
-    .about-credentials { right: 0; bottom: -24px; }
-    html[dir="rtl"] .about-credentials { left: 0; right: auto; }
-    .about-content { padding-right: 0; }
-    html[dir="rtl"] .about-content { padding-left: 0; }
 
     .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+    .contact-details { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 44px; }
 }
 
+@media (max-width: 1260px) {
+    .nav-links { display: none; }
+    .nav-actions { margin-left: auto; margin-right: 18px; gap: 10px; }
+    html[dir="rtl"] .nav-actions { margin-left: auto; margin-right: 18px; }
+    .nav-actions .btn--primary { display: none; }
+    .nav-toggle { display: flex; padding: 8px; }
+    .nav-toggle span { width: 22px; height: 2px; }
+}
+
 @media (max-width: 900px) {
-    :root { --nav-h: 62px; }
+    :root { --nav-h: 84px; }
 
     html { font-size: 14px; }
 
-    .nav-links,
-    .nav-actions { display: none; }
-    .nav-toggle { display: flex; padding: 8px; }
-    .nav-toggle span { width: 22px; height: 2px; }
+    .nav-container { padding: 0 22px; }
+    .nav-brand { gap: 14px; }
+    .nav-brand-text .brand-tagline { font-size: 15px; letter-spacing: 3.6px; }
+    .nav-brand-text .brand-sub { font-size: 11.5px; letter-spacing: 3.4px; }
+    .nav-logo-img img { width: 64px; height: 64px; }
+    .nav-toggle { padding: 10px; }
+    .nav-toggle span { width: 30px; height: 2.5px; }
 
-    .nav-container { padding: 0 18px; }
-    .nav-brand { gap: 10px; }
-    .nav-brand-text .brand-tagline { font-size: 9.5px; letter-spacing: 2.4px; }
-    .nav-brand-text .brand-sub { font-size: 7.5px; letter-spacing: 2.6px; }
-    .nav-logo-img img { width: 38px; height: 38px; padding: 2px; }
+    .whatsapp-fab { width: 104px; height: 104px; bottom: 28px; right: 28px; }
+    .whatsapp-fab svg { width: 44px; height: 44px; }
+    html[dir="rtl"] .whatsapp-fab { left: 28px; right: auto; }
 
     .site-header.scrolled { top: 6px; left: 6px; right: 6px; }
     .site-header.scrolled::before { border-radius: 14px; }
 
-    .hero { padding: 92px 0 60px; min-height: auto; }
+    .hero { padding: 100px 0 70px; min-height: 100vh; min-height: 100dvh; }
     .hero-bg-img { object-position: 35% 50%; }
-    .hero-eyebrow { font-size: 10px; letter-spacing: 2.6px; margin-bottom: 14px; }
-    .hero-title { margin-bottom: 22px; }
-    .hero-line--1 { font-size: clamp(2.8rem, 13vw, 4.2rem); }
-    .hero-line--2 { font-size: clamp(2.4rem, 11.5vw, 3.6rem); }
-    .hero-line--3 { font-size: clamp(2.8rem, 13vw, 4.2rem); }
-    .hero-desc { font-size: 0.92rem; margin-bottom: 26px; line-height: 1.65; }
+    .hero-eyebrow { font-size: 13.5px; letter-spacing: 3.6px; margin-bottom: 22px; }
+    .hero-title { margin-bottom: 34px; }
+    .hero-line--1 { font-size: clamp(4rem, 16.5vw, 6.6rem); }
+    .hero-line--2 { font-size: clamp(3.4rem, 14.5vw, 5.8rem); }
+    .hero-line--3 { font-size: clamp(4rem, 16.5vw, 6.6rem); }
+    .hero-desc { font-size: 1.25rem; margin-bottom: 38px; line-height: 1.7; max-width: 600px; }
+    .hero-actions .btn--lg { padding: 22px 40px; font-size: 16.5px; }
 
-    .services, .about, .doctors, .reviews { padding: 58px 0; }
-    .cta-banner, .contact { padding: 58px 0; }
+    .services, .about, .doctors, .reviews, .contact { padding: 58px 0; }
     .site-footer { padding: 54px 0 22px; }
 
     .section-header { margin-bottom: 36px; }
+    .section-title { font-size: clamp(2.8rem, 6.2vw, 4.6rem); }
+    .section-title--gradient { font-size: clamp(3.2rem, 8vw, 5.4rem); }
 
     .services-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .service-card-img { aspect-ratio: 16/11; }
@@ -1641,20 +1563,20 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .service-badges span { font-size: 10px; padding: 4px 9px; }
 
     .doctors-grid { grid-template-columns: 1fr; gap: 16px; }
-    .doctor-card { grid-template-columns: 0.7fr 1fr; min-height: 220px; }
-    .doctor-card-body { padding: 18px 16px 20px; gap: 8px; }
-    .doctor-card-body h3 { font-size: 1.18rem; }
-    .doctor-role { font-size: 9.5px; letter-spacing: 1.4px; margin-bottom: 4px; }
-    .doctor-card-body p { font-size: 0.82rem; line-height: 1.6; }
-    .doctor-tags { margin-top: 10px; gap: 6px; }
-    .doctor-tags span { font-size: 10px; padding: 4px 9px; }
+    .doctor-card { grid-template-columns: 0.85fr 1fr; min-height: 260px; }
+    .doctor-card-body { padding: 26px 26px 28px; gap: 10px; }
+    .doctor-card-body h3 { font-size: 1.65rem; }
+    .doctor-role { font-size: 12px; letter-spacing: 2px; margin-bottom: 6px; }
+    .doctor-card-body p { font-size: 1.05rem; line-height: 1.65; }
+    .doctor-tags { margin-top: 12px; gap: 8px; }
+    .doctor-tags span { font-size: 12px; padding: 5px 11px; }
 
-    .about-layout { gap: 44px; }
+    .about {
+        background:
+            linear-gradient(rgba(250, 247, 242, 0.70), rgba(250, 247, 242, 0.70)),
+            url('../images/about-reception.webp') center / cover no-repeat;
+    }
     .about-features { grid-template-columns: 1fr; gap: 14px; margin-top: 22px; }
-    .about-text { font-size: 0.92rem; line-height: 1.7; margin-bottom: 14px; }
-    .credential-number { font-size: 1.9rem; }
-    .credential-label { font-size: 9.5px; letter-spacing: 1.2px; }
-    .about-credential { padding: 14px 18px; min-width: 190px; }
     .feature-icon { width: 38px; height: 38px; border-radius: 10px; }
     .about-feature strong { font-size: 13.5px; }
     .about-feature span { font-size: 12px; }
@@ -1667,12 +1589,9 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .review-author strong { font-size: 12.5px; }
     .review-author span { font-size: 11px; }
 
-    .cta-content h2 { font-size: clamp(1.4rem, 5.8vw, 2rem); margin-bottom: 16px; }
-    .cta-content p { font-size: 0.92rem; margin-bottom: 22px; line-height: 1.7; }
-
     .contact-grid { gap: 30px; }
     .contact-text { font-size: 0.92rem; margin-bottom: 22px; }
-    .contact-details { gap: 10px; margin-bottom: 26px; }
+    .contact-details { grid-template-columns: 1fr; gap: 10px; margin-bottom: 26px; }
     .contact-item { padding: 11px 13px; gap: 10px; }
     .contact-icon-dark { width: 34px; height: 34px; border-radius: 9px; }
     .contact-icon-dark svg { width: 16px; height: 16px; }
@@ -1695,10 +1614,10 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .footer-brand { grid-column: 1 / -1; }
     .footer-brand .footer-desc { max-width: none; }
     .site-footer .footer-grid > .footer-col:last-child { grid-column: 1 / -1; }
-    .footer-logo { margin-bottom: 14px; gap: 12px; }
-    .footer-logo-img { width: 38px; height: 38px; }
-    .footer-name { font-size: 1.2rem; }
-    .footer-sub { font-size: 8.5px; letter-spacing: 3.2px; }
+    .footer-logo { margin-bottom: 14px; gap: 14px; }
+    .footer-logo-img { width: 52px; height: 52px; }
+    .footer-name { font-size: 1.6rem; }
+    .footer-sub { font-size: 10px; letter-spacing: 3.4px; }
     .footer-desc { font-size: 12.5px; line-height: 1.65; }
     .footer-col h4 { font-size: 10.5px; letter-spacing: 2px; margin-bottom: 12px; }
     .footer-col ul { gap: 6px; }
@@ -1708,9 +1627,9 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .btn { padding: 11px 20px; font-size: 13px; gap: 8px; }
     .btn--lg { padding: 13px 24px; font-size: 13.5px; }
 
-    .whatsapp-fab { width: 46px; height: 46px; bottom: 14px; right: 14px; }
-    .whatsapp-fab svg { width: 20px; height: 20px; }
-    html[dir="rtl"] .whatsapp-fab { left: 14px; right: auto; }
+    .whatsapp-fab { width: 72px; height: 72px; bottom: 18px; right: 18px; }
+    .whatsapp-fab svg { width: 30px; height: 30px; }
+    html[dir="rtl"] .whatsapp-fab { left: 18px; right: auto; }
 
     .map-section iframe { height: 300px; }
 }
@@ -1718,14 +1637,14 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
 @media (max-width: 600px) {
     html { font-size: 13px; }
 
-    :root { --nav-h: 56px; }
+    :root { --nav-h: 72px; }
 
     .container { padding: 0 16px; }
     .nav-container { padding: 0 16px; }
 
-    .nav-brand-text .brand-tagline { font-size: 8.5px; letter-spacing: 2.2px; }
-    .nav-brand-text .brand-sub { font-size: 7px; letter-spacing: 2.4px; }
-    .nav-logo-img img { width: 34px; height: 34px; }
+    .nav-brand-text .brand-tagline { font-size: 12px; letter-spacing: 3px; }
+    .nav-brand-text .brand-sub { font-size: 9.5px; letter-spacing: 2.8px; }
+    .nav-logo-img img { width: 50px; height: 50px; }
     .nav-toggle span { width: 20px; }
 
     .hero { padding: 84px 0 52px; }
@@ -1735,21 +1654,45 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .hero-actions .btn span { white-space: nowrap; }
 
     .services, .about, .doctors, .reviews,
-    .cta-banner, .contact { padding: 50px 0; }
+    .contact { padding: 50px 0; }
     .site-footer { padding: 44px 0 20px; }
 
-    .about-credentials { bottom: -14px; right: 50%; transform: translateX(50%); }
-    html[dir="rtl"] .about-credentials { left: 50%; right: auto; transform: translateX(-50%); }
-    .about-credential { padding: 12px 16px; }
-    .credential-number { font-size: 1.55rem; }
+    .doctor-card { grid-template-columns: 0.75fr 1fr; min-height: 220px; }
+    .doctor-photo { aspect-ratio: auto; }
+    .doctor-photo img { object-fit: cover; object-position: center top; }
 
-    .doctor-card { grid-template-columns: 1fr; min-height: 0; }
-    .doctor-photo { aspect-ratio: 16/11; }
+    .review-card { width: 260px; padding: 18px 16px; }
+    .review-card p { font-size: 1rem; line-height: 1.6; }
+    .review-author strong { font-size: 14.5px; }
+    .review-author span { font-size: 13px; }
 
-    .cta-actions { flex-direction: column; }
-    .cta-actions .btn { width: 100%; }
+    .service-card h3 { font-size: 1.35rem; }
+    .service-card p { font-size: 1rem; line-height: 1.65; }
 
-    .review-card { width: 224px; padding: 16px 14px; }
+    .doctor-card-body { padding: 22px 20px 24px; gap: 10px; }
+    .doctor-card-body h3 { font-size: 1.5rem; }
+    .doctor-role { font-size: 11.5px; letter-spacing: 1.6px; }
+    .doctor-card-body p { font-size: 1rem; line-height: 1.65; }
+    .doctor-tags span { font-size: 12px; padding: 5px 11px; }
+
+    .about-feature strong { font-size: 15.5px; }
+    .about-feature span { font-size: 13.5px; }
+
+    .contact-label { font-size: 11px; letter-spacing: 1.8px; }
+    .contact-value { font-size: 15px; }
+    .form-group label { font-size: 14px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea { font-size: 15px; padding: 13px 14px; }
+    .form-note { font-size: 12.5px; }
+
+    .footer-name { font-size: 1.85rem; }
+    .footer-sub { font-size: 10.5px; letter-spacing: 3.4px; }
+    .footer-desc { font-size: 14px; }
+    .footer-col h4 { font-size: 12.5px; letter-spacing: 2.2px; }
+    .footer-col ul li,
+    .footer-col ul a { font-size: 14.5px; }
+    .footer-bottom { font-size: 12.5px; }
 }
 
 @media (max-width: 420px) {
@@ -1758,8 +1701,13 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .service-card h3 { font-size: 1.15rem; }
     .service-card p { font-size: 0.88rem; }
 
-    .whatsapp-fab { width: 42px; height: 42px; bottom: 12px; right: 12px; }
-    .whatsapp-fab svg { width: 18px; height: 18px; }
+    .nav-container { padding: 12px 16px; }
+    .nav-logo-img img { width: 52px; height: 52px; }
+    .nav-brand-text .brand-tagline { font-size: 11px; letter-spacing: 3px; }
+    .nav-brand-text .brand-sub { font-size: 9px; letter-spacing: 2.8px; }
+
+    .whatsapp-fab { width: 62px; height: 62px; bottom: 14px; right: 14px; }
+    .whatsapp-fab svg { width: 26px; height: 26px; }
 
     .map-section iframe { height: 260px; }
 }
@@ -1775,10 +1723,9 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     html { font-size: 19px; }
 
     .nav-container { padding: 0 52px; }
-    .nav-logo-img img { width: 88px; height: 88px; padding: 5px; }
+    .nav-logo-img img { width: 88px; height: 88px; }
     .brand-tagline { font-size: 15px; letter-spacing: 4.5px; }
     .brand-sub { font-size: 12px; letter-spacing: 5px; }
-    .nav-link { padding: 14px 22px; font-size: 17px; }
     .nav-link::after { width: 28px; height: 2.5px; }
     .btn--lang { padding: 15px 26px; font-size: 15px; }
     .site-header.scrolled { top: 18px; left: 24px; right: 24px; }
@@ -1788,7 +1735,7 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .hero-desc { font-size: 1.22rem; max-width: 720px; margin-bottom: 54px; }
 
     .services, .about, .doctors, .reviews,
-    .contact, .cta-banner { padding: 190px 0; }
+    .contact { padding: 190px 0; }
     .section-header { margin-bottom: 94px; }
 
     .services-grid { gap: 32px; }
@@ -1802,11 +1749,16 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .doctor-card-body { padding: 46px 44px; }
     .doctor-card-body h3 { font-size: 2.1rem; }
 
+    .about-content { max-width: 1240px; }
+    .about-features { margin-top: 64px; gap: 40px 72px; }
+    .about-feature { gap: 22px; }
+    .about-feature strong { font-size: 19px; margin-bottom: 7px; }
+    .about-feature span { font-size: 16px; line-height: 1.6; }
+    .feature-icon { width: 64px; height: 64px; border-radius: 18px; }
+    .feature-icon svg { width: 28px; height: 28px; }
+
     .review-card { width: 460px; padding: 36px 34px; }
     .review-avatar { width: 54px; height: 54px; font-size: 16px; }
-
-    .about-layout { gap: 110px; }
-    .credential-number { font-size: 3.1rem; }
 
     .contact-grid { gap: 90px; }
     .contact-form-wrap { padding: 54px 50px; }
@@ -1839,11 +1791,18 @@ html[dir="rtl"] .whatsapp-fab { right: auto; left: 28px; }
     .nav-logo-img img { width: 100px; height: 100px; }
     .brand-tagline { font-size: 17px; letter-spacing: 5px; }
     .brand-sub { font-size: 13px; letter-spacing: 5.5px; }
-    .nav-link { padding: 17px 28px; font-size: 19px; }
 
     .hero { padding: 240px 0 170px; }
     .services, .about, .doctors, .reviews,
-    .contact, .cta-banner { padding: 230px 0; }
+    .contact { padding: 230px 0; }
+
+    .about-content { max-width: 1560px; }
+    .about-features { margin-top: 80px; gap: 52px 96px; }
+    .about-feature { gap: 28px; }
+    .about-feature strong { font-size: 22px; }
+    .about-feature span { font-size: 17.5px; }
+    .feature-icon { width: 76px; height: 76px; border-radius: 22px; }
+    .feature-icon svg { width: 32px; height: 32px; }
 
     .review-card { width: 540px; }
     .whatsapp-fab { width: 90px; height: 90px; }

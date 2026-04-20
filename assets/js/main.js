@@ -56,7 +56,6 @@
 
         var html = document.documentElement;
         html.lang = lang;
-        html.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
         document.querySelectorAll('[data-en][data-ar]').forEach(function (el) {
             var val = el.getAttribute('data-' + lang);
